@@ -1,0 +1,16 @@
+{% load static %}
+<!DOCTYPE html>
+<link rel="stylesheet" href="{% static 'css/findtrains.css' %}"/>
+<html>
+<body style="background-color:white" >
+<table>
+<center>
+        {%if book%}
+<h1> Successfully Booked the ticket !!!!</h1>
+    {%endif%}
+	<h2 style="background-color: lightgrey;border: 1px solid black; width: 1400px">Your Ticket Number is : </h2>
+<ul style="width: 1400px;margin: 20;padding: 5px;overflow: hidden;font-size:30px;border: 1px solid black">{{ context}}</ul>
+</center>
+</table>
+</body>
+</html>

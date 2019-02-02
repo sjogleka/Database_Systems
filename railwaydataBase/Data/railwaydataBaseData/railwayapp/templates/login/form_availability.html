@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<div class="container">
+    <link rel="stylesheet" href="{% static 'css/findtrains.css' %}"/>
+    <div class="col-md-8">
+        <h2>Check Trains In Betweeen </h2>
+        <form method="POST" action="ST/">{% csrf_token %}
+            <center>
+            <b>Enter Source and Destination </b><br>
+			<br>
+			<input type="text" name="source" placeholder="Enter Source" style="height: 25px;border:1px solid #000;" /><br><br>
+            <input type="text" name="destination" placeholder="Enter Destination" style="height: 25px;border: 1px solid #000;" /><br><br>
+            <button type="submit">Submit</button><br><br>
+            <br>
+            </center>/>
+        </form>
+    </div>
+  </div>
+  </html>

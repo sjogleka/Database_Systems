@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<div class="container">
+    <link rel="stylesheet" href="{% static 'css/findtrains.css' %}"/>
+    <div class="col-md-8">
+        <h2>Add New Train</h2>
+        <form method="POST" action="add_train/">{% csrf_token %}
+            <center>
+            <b>Enter Below Information</b><br>
+			<br>
+			<input type="text" name="train_number" placeholder="Enter New Train's Number" style="height: 25px;border:1px solid #000;" /><br><br>
+            <input type="text" name="train_name" placeholder="Enter Train Name" style="height: 25px;border: 1px solid #000;" /><br><br>
+            <input type="text" name="source" placeholder="Enter Source" style="height: 25px;border: 1px solid #000;" /><br><br>
+            <input type="text" name="destination" placeholder="Enter Desstination" style="height: 25px;border: 1px solid #000;" /><br><br>
+            <input type="text" name="t_cap" placeholder="Enter Total Capacity" style="height: 25px;border: 1px solid #000;" /><br><br>
+            <input type="text" name="base_fare" placeholder="Enter Base Fare" style="height: 25px;border: 1px solid #000;" /><br><br>
+            <button type="submit">Submit</button><br><br>
+            <br>
+            </center>/>
+        </form>
+    </div>
+  </div>
+  </html>

@@ -1,0 +1,16 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+ <link rel="stylesheet" href="{% static 'css/home.css' %}" />
+<head>
+<title> Details </title>
+</head>
+<center>
+	<h2 style="background-color: lightgrey;border: 1px solid black; width: 1400px">Details</h2>
+	{% for context in context %}
+<ul style="width: 1400px;margin: 20;padding: 5px;overflow: hidden;font-size:20px;border: 1px solid black">{{ context|safeseq | join:"</b> &nbsp &nbsp" }}</ul>
+	{% endfor %}
+</center>
+</table>>
+</body>
+</html>

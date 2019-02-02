@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" href="{% static 'css/findtrains.css' %}"/>s
+<div class="container">
+    <center>
+    <div class="col-md-8">
+        <h2>Check Fare </h2>
+        <form method="POST" action="Fare/">{% csrf_token %}
+            <b>Enter Source , Destination and Train Number</b><br>
+			<br>
+			<input type="text" name="source" placeholder="Enter Source"><br><br>
+            <input type="text" name="destination" placeholder="Enter Destination"><br><br>
+            <input type="text" name="train_number" placeholder="Enter Train Number"><br><br>
+            <button type="submit">Submit</button><br><br>
+            <br>
+        </form>
+    </div>
+    </center>>
+  </div>
+  </html>

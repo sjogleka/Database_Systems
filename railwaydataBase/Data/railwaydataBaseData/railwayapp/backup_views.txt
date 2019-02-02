@@ -1,0 +1,228 @@
+from django.views.generic import TemplateView
+from django.shortcuts import render,render_to_response
+from django.http import HttpResponseRedirect, HttpResponse
+from django.db import connection
+from django.contrib.auth import authenticate, login, logout
+# Create your views here.
+from railwayapp.models import Train
+#def index(request):
+ #   return HttpResponse('Welcome ....')
+
+def my_custom_sql(query):
+    cursor = connection.cursor()
+    temp=[]# Data modifying operation - commit required
+    temp.append(cursor.execute(query))
+    #transaction.commit_unless_managed()
+    #row = []
+    # Data retrieval operation - no commit required
+    #cursor.execute("SELECT foo FROM bar WHERE baz = %s", [self.baz])
+    #row.append(cursor.fetchall())
+    c=cursor.fetchall()
+    #print(row)
+    #print(c)
+    return(c)
+def my_custom_sql1(query):
+    cursor = connection.cursor()
+    temp=[]# Data modifying operation - commit required
+    cursor.execute(query)
+    c = cursor.fetchall()
+    myVar1 = c[0]
+    #transaction.commit_unless_managed()
+    #row = []
+    # Data retrieval operation - no commit required
+    #cursor.execute("SELECT foo FROM bar WHERE baz = %s", [self.baz])
+    #row.append(cursor.fetchall())
+    #c=cursor.fetchall()
+    #print(row)
+    print(myVar1[0])
+    return(myVar1[0])
+def my_custom_sql2(query):
+    cursor = connection.cursor()
+    temp=[]# Data modifying operation - commit required
+    temp.append(cursor.execute(query))
+    #transaction.commit_unless_managed()
+    #row = []
+    # Data retrieval operation - no commit required
+    #cursor.execute("SELECT foo FROM bar WHERE baz = %s", [self.baz])
+    #row.append(cursor.fetchall())
+    c=cursor.fetchall()
+    list=[]
+    print(c,len(c))
+    x = len(c)
+    for i in range(x):
+        print(c[i][0])
+        list.append(c[i][0])
+        #print(list)
+    #print(row)
+    #print(c)
+    return(list)
+def signup(request):
+    print("In Signup Form")
+    return render(request,'login/form_signup.html')
+def index(request):
+    return render(request, 'login/home.html')
+def form_fare(request):
+    print("In Form")
+    return render(request, 'login/form_Fare.html')
+def form_availability(request):
+    print("In View Form_Availability to Check Trains In Betweeen")
+    return render(request, 'login/form_availability.html')
+def search(request):
+    print("In search")
+    if request.method == 'POST':
+        search_id = request.POST.get('query', None)
+        output = my_custom_sql(search_id)
+        print(output)
+        return render(request,'login/test.html',{'context':output})
+    else:
+        return (HttpResponse("<H1>Error .........</H1>"))
+def unique(list1):
+    # intilize a null list
+    unique_list = []
+    # traverse for all elements
+    for x in list1:
+        # check if exists in unique_list or not
+        if x not in unique_list:
+            unique_list.append(x)
+            # print list
+    for x in unique_list:
+        print(x)
+    return unique_list
+def train(request):
+    Train = request.POST.get('Train')
+    User = request.POST.get('User')
+    Station = request.POST.get('Station')
+    print(Train,User)
+    if Train=='':
+        print("In Train")
+        output = my_custom_sql("Select * from Train")
+    elif User=='':
+        print("In User")
+        output = my_custom_sql("Select * from User")
+        print(output)
+    else:
+        print("In Station")
+        output = my_custom_sql("Select * from station")
+        print(output)
+    return render(request,'login/test.html',{'context':output})
+def Availability(request):
+        print("Get Available Seats")
+        if request.method == 'POST':
+            travel_day = request.POST.get('Travel Day', None)
+            train_number = int(request.POST.get('train_number', None))
+        else:
+            return (HttpResponse("<H1>Error .........</H1>"))
+        print(train_number,type(train_number))
+        querywithstoreproc = "call availability(%d,'%s','%s')" %(train_number,travel_day,travel_day)
+        q2 = "select no_available_seats from Availability where train_number =%d and train_running_day ='%s'"%(train_number,travel_day)
+        print(querywithstoreproc,q2)
+        my_custom_sql1(querywithstoreproc);
+        finaloutput = my_custom_sql1(q2);
+        print(finaloutput)
+        return render(request,'login/Availability.html',{'context':finaloutput})
+def ST(request):
+    print("In Search Train")
+    if request.method == 'POST':
+        source = request.POST.get('source', None)
+        destination = request.POST.get('destination', None)
+        #train_number = request.POST.get('train_number', None)
+    else:
+        return (HttpResponse("<H1>Error .........</H1>"))
+    query1 = '''select train_number from startsAt where station_no=(select station_no from station where station_name = '%s')''' %(source)
+    query2 = '''select train_number from startsAt where station_no=(select station_no from station where station_name = '%s')''' %(destination)
+    output = my_custom_sql2(query1)
+    output1 = my_custom_sql2(query2)
+    finaloutput = unique(output)
+    finaloutput=unique(output1)
+    #print(finaloutput)
+    finaloutput1 = []
+    context = {}
+    context1 = {}
+    print("Before For")
+    for i in range(len(finaloutput)):
+        fop = '''select * from Train where train_number =%s;''' %(finaloutput[i])
+        print(fop)
+        op = my_custom_sql(fop)
+        finaloutput1.append(op)
+        print("finaloutput",i,finaloutput)
+        print("----------------------------------------------------------------")
+        #finaloutput1.append(traininfo(finaloutput[i]))
+        #context.update(traininfo(finaloutput[i]))
+        print("----------------------------------------------------------------")
+        context = {'info':finaloutput1}
+        print("Context",context)
+        print("FO", finaloutput1,type(finaloutput1))
+    #context1 = {item['info']: item for item in finaloutput1}
+    print("Context", context1)
+    return render(request, 'login/test.html',context1)
+
+def merge_two_dicts(x, y):
+    """Given two dicts, merge them into a new dict as a shallow copy."""
+    z = {**x,**y}
+    print("z",z)
+    return z
+def Fare(request):
+    print("Fare")
+    if request.method == 'POST':
+        source = request.POST.get('source', None)
+        destination = request.POST.get('destination', None)
+        train_number = request.POST.get('train_number', None)
+    else:
+        return (HttpResponse("<H1>Error .........</H1>"))
+    #query1='''select hault from startsAt where station_no=(select station_no from station where station_name='%s') and train_number=%s''' %(source,train_number)
+    #query2='''select hault from startsAt where station_no=(select station_no from station where station_name='%s') and train_number=%s''' %(destination,train_number)
+    #print(query1)
+    #output = my_custom_sql1(query1)
+    #output1 = my_custom_sql1(query2)
+    #finaloutput = output1 - output
+    #baseFare = my_custom_sql1("select base_fare from Train where train_number = '%s';"%train_number)
+    # finaloutput=tuple(x - y for x, y in zip(output, output1))
+    # output=finaloutput
+    #finaloutput = finaloutput*baseFare
+    query2 = "call fare(%d,'%s','%s',@tfare);" %(int(train_number),source,destination)
+    print(query2)
+    my_custom_sql(query2);
+    finaloutput = my_custom_sql1("select @tfare");
+    print(finaloutput)
+    if finaloutput<0:
+        finaloutput = "Sorry Please select Valid Route..."
+    return render(request, 'login/Fare.html', {'context': finaloutput})
+def Login(request):
+    print("In Login Form")
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        print(username,password);
+        check = "select password from UserAccount WHERE username ='%s'"%(username);
+        print(check);
+        check1 = my_custom_sql1(check);
+        print(check1);
+        if password == check1:
+            return HttpResponse(render(request, "login/login_success.html",{'context': username}))
+
+        else:
+            return HttpResponse("invalid credentials")
+    return render(request,'login/login_page.html')
+def login_form(request):
+    return render(request,'login/login_home.html')
+def traininfo(trainno):
+    print("In traininfo")
+    trainno = int(trainno)
+    c = connection.cursor()
+    c.execute('SELECT * FROM Train WHERE train_number = %d' %(trainno))
+    train = c.fetchone()
+    c.execute('SELECT * FROM startsAt WHERE train_number = %d' %(trainno))
+    stoppage = c.fetchall()
+    print(type(stoppage))
+    c.execute('SELECT * FROM station')
+    scode = {}
+    for row in c.fetchall():
+        scode[str(row[0])] = str(row[1])
+        print(scode)
+    station = {}
+    #for row in stoppage:
+    #    station[str(row[1])] = scode[str(row[1])]
+    print(stoppage)
+    context = {"info":train, "stop":stoppage}
+    print(context)
+    return (context)

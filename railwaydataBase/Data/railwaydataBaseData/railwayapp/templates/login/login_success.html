@@ -1,0 +1,18 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>home</title>
+	<link rel="stylesheet" href="{% static 'css/login_success.css' %}" /> 
+</head>
+<body>	
+	<center>
+		<h1> Hi {{context}} </h1>
+		<a href="/index/traininfo/"><button>Know about trains</button></a><br><br>
+		<a href="/index/form_availability/"><button>Search trains between stations</button></a><br><br>
+		<a href="/ticket/"><button>Book a ticket</button></a><br><br>
+		<a href="/logout/"> <button> logout </button></a><br><br>
+    </center>
+</body>
+</html>

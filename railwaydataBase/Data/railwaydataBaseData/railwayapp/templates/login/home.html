@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<div class="container">
+    <center>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}"/>
+    <div class="col-md-8">
+        <h2>Welcome to Railways !! </h2>
+        <form method="POST" action="search/">{% csrf_token %}
+			<b>SQL Query</b><br>
+			<br>
+			<input type="text" name="query" placeholder="Enter Query"><br><br>
+            <button type="submit">Submit</button><br><br>
+        </form>
+        <form method="POST" action="train/">{% csrf_token %}
+            <button type="submit" name="Train">Train Details</button><br><br>
+            <button type="submit" name="User">User Details</button><br><br>
+            <button type="submit" name="Station">Station Details</button><br><br>
+        </form>
+        <form method="POST" action="form_availability/">{% csrf_token %}
+            <button type="submit">Check Trains In Betweeen</button><br><br>
+        </form>
+        <form method="POST" action="Availability/">{% csrf_token %}
+            <b>Check Availability of Train </b><br>
+            <b>Train Number and Travel Day</b><br>
+			<br>
+			<input type="text" name="Travel Day" placeholder="Enter Travel Day"><br><br>
+            <input type="text" name="train_number" placeholder="Enter Train Number"><br><br>
+            <button type="submit" name="Available Seats">Available Seats</button><br><br>
+        </form>
+        <form method="POST" action="form_fare/">{% csrf_token %}
+            <button type="submit">Check Fare</button><br><br>
+        </form>
+        <form method="POST" action="form_book/">{% csrf_token %}
+            <button type="submit">Book Ticket</button><br><br>
+        </form>
+        <form method="POST" action="form_cancel/">{% csrf_token %}
+            <button type="submit">Cancel Ticket</button><br><br>
+        </form>
+             <form method="POST" action="msg_admin/">{% csrf_token %}
+            <button type="submit">Message Admin</button><br><br>
+        </form>
+        </form>
+            <form method="POST" action="booking_history/">{% csrf_token %}
+            <button type="submit">Check Booking History</button><br><br>
+        </form>
+        </form>
+           <form method="POST" action="new_train/">{% csrf_token %}
+           <button type="submit">Add new Train</button><br><br>
+        </form>
+    </div>
+    </center>>
+  </div>
+  </html>

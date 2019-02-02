@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="{% static 'css/findtrains.css' %}"/>s
+<head>
+    <meta charset="UTF-8">
+    <title>Form for Booking</title>
+</head>
+<body>
+<center>
+    <h1> Cancel </h1>
+    <form method="POST" action="Cancel/">{% csrf_token %}
+      <b>Enter Ticket Details</b><br><br>
+       <input type="text" name="ticket_number" placeholder="Enter Ticket Number"><br><br>
+      <button type="submit">Cancel Ticket</button><br><br><br>
+    </form> <br>
+    <a href="/logout/"> <button> logout </button> </a><br>
+</center>
+</body>
+</html>

@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <link rel="stylesheet" href="{% static 'css/findtrains.css' %}"/>
+<head>
+    <meta charset="UTF-8">
+    <title>Form for Booking</title>
+</head>
+<body>
+<center>
+    <h1> Book </h1>
+    <form method="POST" action="Book/">{% csrf_token %}
+      <b>Enter Details</b><br>
+       <input type="text" name="train_number" placeholder="Enter Train Number"><br><br>
+       <input type="text" name="Travel_Day" placeholder="Enter Travel Day"><br><br>
+       <input type="text" name="no_of_pass" placeholder="Enter Number of Passengers"><br><br>
+       <input type="text" name="Source" placeholder="Enter Source"><br><br>
+       <input type="text" name="Destination" placeholder="Enter Destination"><br><br>
+      <button type="submit">Book Ticket</button><br><br>
+    </form> <br>
+    {%if show%}
+    <form method="POST" action="BookTicket/">{% csrf_token %}
+    <table border = 1, style="width:100%">
+        <tr>
+            <th>Pasenger Email ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Contact Number</th>
+            <th>gender</th>
+        </tr>
+        <tr>
+            <td><span><input type="text" name="p_email" placeholder="Enter Pasengers Email ID" style="width:80%"><br><br></span></td>
+            <td><input type="text" name="f_name" placeholder="First Name" style="width:80%"><br><br></td>
+            <td><input type="text" name="l_name" placeholder="Last Name" style="width:80%"><br><br></td>
+            <td><input type="text" name="c_number" placeholder="Contact Number" style="width:80%"><br><br></td>
+            <td><input type="text" name="gender" placeholder="Gender" style="width:80%"><br><br></td>
+        </tr>
+        <tr>
+            <td><input type="text" name="p_email" placeholder="Enter Pasengers Email ID" style="width:80%"><br><br></td>
+            <td><input type="text" name="f_name" placeholder="First Name" style="width:80%"><br><br></td>
+            <td><input type="text" name="l_name" placeholder="Last Name" style="width:80%"><br><br></td>
+            <td><input type="text" name="c_number" placeholder="Contact Number" style="width:80%"><br><br></td>
+            <td><input type="text" name="gender" placeholder="Gender" style="width:80%"><br><br></td>
+        </tr>
+        <tr>
+            <td><input type="text" name="p_email" placeholder="Enter Pasengers Email ID" style="width:80%"><br><br></td>
+            <td><input type="text" name="f_name" placeholder="First Name" style="width:80%"><br><br></td>
+            <td><input type="text" name="l_name" placeholder="Last Name" style="width:80%"><br><br></td>
+            <td><input type="text" name="c_number" placeholder="Contact Number" style="width:80%"><br><br></td>
+            <td><input type="text" name="gender" placeholder="Gender" style="width:80%"><br><br></td>
+        </tr>
+        <tr>
+            <td><input type="text" name="p_email" placeholder="Enter Pasengers Email ID" style="width:80%"><br><br></td>
+            <td><input type="text" name="f_name" placeholder="First Name" style="width:80%"><br><br></td>
+            <td><input type="text" name="l_name" placeholder="Last Name" style="width:80%"><br><br></td>
+            <td><input type="text" name="c_number" placeholder="Contact Number" style="width:80%"><br><br></td>
+            <td><input type="text" name="gender" placeholder="Gender" style="width:80%"><br><br></td>
+        </tr>
+        <tr>
+            <td><input type="text" name="p_email" placeholder="Enter Pasengers Email ID" style="width:80%"><br><br></td>
+            <td><input type="text" name="f_name" placeholder="First Name" style="width:80%"><br><br></td>
+            <td><input type="text" name="l_name" placeholder="Last Name" style="width:80%"><br><br></td>
+            <td><input type="text" name="c_number" placeholder="Contact Number" style="width:80%"><br><br></td>
+            <td><input type="text" name="gender" placeholder="Gender" style="width:80%"><br><br></td>
+        </tr>
+    <br>
+    </table> <br>
+    <button type="submit">Book Ticket</button><br><br>
+    </form> <br>
+    {% endif %}
+    <a href="/logout/"> <button> logout </button> </a><br>
+  </center>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="{% static 'css/findtrains.css' %}"/>
+<body>
+<center>
+<h1>Contact Us</h1>
+<form method="POST" action="enter_msg/">{% csrf_token %}
+    <b>Subject :</b> <input type="text" name="subject">
+<br>
+<textarea rows="4" cols="50" name="comment">
+    Enter text here...</textarea><br><br>
+    <button type="submit">Submit</button><br><br>
+</form>
+</center>>
+</body>
+</html>
