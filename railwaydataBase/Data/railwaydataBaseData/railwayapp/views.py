@@ -66,7 +66,7 @@ def form_fare(request):
     print("In Form")
     return render(request, 'login/form_Fare.html')
 def form_availability(request):
-    print("In View Form_Availability to Check Trains In Betweeen")
+    print("In View Form_Availability to Check Trains In Between")
     return render(request, 'login/form_availability.html')
 def search(request):
     print("In search")
